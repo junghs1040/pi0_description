@@ -1,0 +1,74 @@
+전체 구조 개요
+
+openpi/
+├── src/openpi/          # 핵심 라이브러리 (JAX 기반)
+├── packages/openpi-client/  # 클라이언트 패키지 (경량)
+├── scripts/             # 학습/서빙 실행 스크립트
+├── examples/            # 로봇 환경별 예제
+└── docs/                # 문서
+핵심 소스 (src/openpi/)
+모델 (models/)
+파일	설명
+pi0.py	π0 모델 본체 - Flow Matching 기반 로봇 정책 메인 구현
+pi0_fast.py	π0-FAST - 토크나이즈된 액션을 사용하는 빠른 버전
+pi0_config.py	π0 모델 설정 클래스
+gemma.py	Gemma 언어모델 (JAX/Flax NNX)
+gemma_fast.py	Gemma 빠른 버전
+siglip.py	SigLIP 비전 인코더 (이미지 처리)
+vit.py	Vision Transformer
+lora.py	LoRA 파인튜닝 지원
+model.py	모델 공통 인터페이스
+tokenizer.py	텍스트 토크나이저
+PyTorch 모델 (models_pytorch/)
+파일	설명
+pi0_pytorch.py	π0 PyTorch 구현
+gemma_pytorch.py	Gemma PyTorch 구현
+preprocessing_pytorch.py	PyTorch용 전처리
+transformers_replace/	HuggingFace transformers 커스텀 대체 구현 (Gemma, SigLIP, PaliGemma)
+정책 (policies/)
+파일	설명
+policy.py	기본 정책 인터페이스
+policy_config.py	정책 설정
+aloha_policy.py	ALOHA 로봇팔용 정책
+droid_policy.py	DROID 로봇용 정책
+libero_policy.py	LIBERO 시뮬레이터용 정책
+학습 (training/)
+파일	설명
+config.py	학습 설정 (하이퍼파라미터, 데이터셋 등)
+data_loader.py	LeRobot 데이터셋 로더
+optimizer.py	옵티마이저 설정
+checkpoints.py	모델 체크포인트 저장/로드
+weight_loaders.py	사전학습 가중치 로더
+sharding.py	JAX 멀티-GPU 샤딩
+droid_rlds_dataset.py	DROID RLDS 데이터셋
+공용 유틸 (shared/)
+파일	설명
+normalize.py	입력 정규화
+image_tools.py	이미지 처리 유틸
+download.py	모델 가중치 다운로드
+array_typing.py	JAX 배열 타입
+nnx_utils.py	Flax NNX 유틸
+기타
+파일	설명
+transforms.py	데이터 변환/증강 파이프라인
+serving/websocket_policy_server.py	WebSocket 기반 정책 서버
+스크립트 (scripts/)
+파일	설명
+train.py	JAX 학습 진입점
+train_pytorch.py	PyTorch 학습 진입점
+serve_policy.py	정책 서버 실행
+compute_norm_stats.py	정규화 통계 계산
+클라이언트 패키지 (packages/openpi-client/)
+로봇 제어 쪽(클라이언트)에서 사용하는 경량 패키지:
+
+websocket_client_policy.py - WebSocket으로 서버에 연결
+runtime/ - 에이전트 실행 루프
+예제 (examples/)
+디렉토리	설명
+aloha_real/	ALOHA 실제 로봇팔
+aloha_sim/	ALOHA 시뮬레이터
+droid/	DROID 로봇
+libero/	LIBERO 시뮬레이터
+simple_client/	가장 단순한 클라이언트 예제
+ur5/	UR5 로봇팔
+요약: π0는 PaliGemma(SigLIP + Gemma) + Flow Matching을 결합한 로봇 정책 모델로, JAX와 PyTorch 두 가지 구현을 제공하며, WebSocket 서버-클라이언트 구조로 실제 로봇과 통신합니다.
