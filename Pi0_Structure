@@ -1,5 +1,6 @@
 # openpi 프로젝트 구조 설명
 
+이 프로젝트는 **openpi** — Physical Intelligence(물리 지능) 회사의 오픈소스 로봇 제어 모델 **π0 (Pi0)** 구현체입니다.
 
 ---
 
@@ -19,6 +20,7 @@ openpi/
 ## 핵심 소스 (`src/openpi/`)
 
 ### 모델 (`models/`)
+
 | 파일 | 설명 |
 |------|------|
 | `models/pi0.py` | **π0 모델 본체** - Flow Matching 기반 로봇 정책 메인 구현 |
@@ -33,6 +35,7 @@ openpi/
 | `models/tokenizer.py` | 텍스트 토크나이저 |
 
 ### PyTorch 모델 (`models_pytorch/`)
+
 | 파일 | 설명 |
 |------|------|
 | `models_pytorch/pi0_pytorch.py` | π0 PyTorch 구현 |
@@ -41,6 +44,7 @@ openpi/
 | `models_pytorch/transformers_replace/` | HuggingFace transformers 커스텀 대체 구현 (Gemma, SigLIP, PaliGemma) |
 
 ### 정책 (`policies/`)
+
 | 파일 | 설명 |
 |------|------|
 | `policies/policy.py` | 기본 정책 인터페이스 |
