@@ -79,7 +79,7 @@ raw_input = {
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # 💡 Step 0 요약:
-#   모델에 들어가는 원본 입력 데이터의 구조.
+# 모델에 들어가는 원본 입력 데이터의 구조.
 #   - Images: 3대의 카메라 (base, left_wrist, right_wrist)에서 찍은 RGB 영상
 #   - State:  로봇의 현재 관절 상태 (x, y, z, 쿼터니언, 그리퍼) 7 DoF
 #   - Text:   사람이 내린 언어 명령 ("pick up fork" 등) → 이미 토크나이즈된 정수 배열
@@ -138,11 +138,11 @@ observation = Observation(
 # - Text: [4, 16] int32
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 💡 Step 1 요약:
-#   딕셔너리 형태의 원본 데이터를 구조화된 Observation 객체로 변환.
-#   - uint8 [0,255] 이미지 → float32 [-1,1] 로 정규화
-#     (모델이 연속적인 실수값 입력을 기대하기 때문)
-#   - 이후 모든 처리는 이 Observation 객체를 통해 접근
+💡 Step 1 요약:
+  딕셔너리 형태의 원본 데이터를 구조화된 Observation 객체로 변환.
+  - uint8 [0,255] 이미지 → float32 [-1,1] 로 정규화
+    (모델이 연속적인 실수값 입력을 기대하기 때문)
+  - 이후 모든 처리는 이 Observation 객체를 통해 접근
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -228,13 +228,13 @@ for image_name in observation.images:
 # Total: 3 × 256 = 768 image tokens
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 💡 Step 2 요약:
-#   SigLIP (ViT-So400m/14) 으로 이미지를 패치 토큰 시퀀스로 변환.
-#   - 224×224 이미지를 14×14 크기의 패치 256개로 분할
-#   - 27층 ViT Transformer로 각 패치의 문맥적 특징 추출 (width=1152)
-#   - 최종 Dense(2048) 로 PaliGemma 의 언어 모델 차원에 맞게 투영
-#   - 3개 카메라 각각 독립 처리 → 768개의 이미지 토큰 생성
-#   - 이 토큰들이 언어 토큰과 동일한 임베딩 공간에 놓이게 됨
+💡 Step 2 요약:
+  SigLIP (ViT-So400m/14) 으로 이미지를 패치 토큰 시퀀스로 변환.
+  - 224×224 이미지를 14×14 크기의 패치 256개로 분할
+  - 27층 ViT Transformer로 각 패치의 문맥적 특징 추출 (width=1152)
+  - 최종 Dense(2048) 로 PaliGemma 의 언어 모델 차원에 맞게 투영
+  - 3개 카메라 각각 독립 처리 → 768개의 이미지 토큰 생성
+  - 이 토큰들이 언어 토큰과 동일한 임베딩 공간에 놓이게 됨
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -278,12 +278,12 @@ class Embedder:
 # Token ID 0     → embedding_table[0]     → [2048 dims] × 45.25 (padding)
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 💡 Step 3 요약:
-#   정수 토큰 ID를 연속적인 2048차원 임베딩 벡터로 변환.
-#   - 어휘 크기 257,152개의 룩업 테이블에서 해당 행을 가져옴
-#   - √2048 ≈ 45.25 로 스케일링하여 임베딩 크기를 안정화
-#     (이미지 토큰과 언어 토큰이 같은 수치 범위에 있도록 맞춤)
-#   - 이 시점에서 이미지 토큰과 텍스트 토큰은 동일한 [B, S, 2048] 형태를 가짐
+💡 Step 3 요약:
+  정수 토큰 ID를 연속적인 2048차원 임베딩 벡터로 변환.
+  - 어휘 크기 257,152개의 룩업 테이블에서 해당 행을 가져옴
+  - √2048 ≈ 45.25 로 스케일링하여 임베딩 크기를 안정화
+    (이미지 토큰과 언어 토큰이 같은 수치 범위에 있도록 맞춤)
+  - 이 시점에서 이미지 토큰과 텍스트 토큰은 동일한 [B, S, 2048] 형태를 가짐
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -347,12 +347,12 @@ def embed_prefix(self, obs):
 # - prefix_ar_mask: [784] (all False = bidirectional)
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 💡 Step 4 요약:
-#   이미지 토큰(768개)과 텍스트 토큰(16개)을 하나의 Prefix 시퀀스로 합침.
-#   - 순서: [image_0(256), image_1(256), image_2(256), text(16)] = 784 토큰
-#   - ar_mask = 전부 False → Prefix 내부는 모든 토큰이 서로를 볼 수 있는 양방향 attention
-#   - 이 Prefix는 "환경 관찰 정보" 전체를 담음
-#   - 추론 시 이 784개 토큰은 KV Cache로 저장되어 한 번만 계산됨
+💡 Step 4 요약:
+  이미지 토큰(768개)과 텍스트 토큰(16개)을 하나의 Prefix 시퀀스로 합침.
+  - 순서: [image_0(256), image_1(256), image_2(256), text(16)] = 784 토큰
+  - ar_mask = 전부 False → Prefix 내부는 모든 토큰이 서로를 볼 수 있는 양방향 attention
+  - 이 Prefix는 "환경 관찰 정보" 전체를 담음
+  - 추론 시 이 784개 토큰은 KV Cache로 저장되어 한 번만 계산됨
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -461,17 +461,17 @@ suffix_ar_mask = jnp.array([True] + [True] + [False] * 31)
 # - adarms_cond: None (π₀는 AdaRMS 사용 안 함)
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 💡 Step 5 요약:
-#   로봇 state와 (노이즈 섞인) action을 Action Expert 차원(1024)으로 임베딩.
-#   - State:  Linear(7→1024) → 1개의 state 토큰
-#   - Action: Linear(7→1024) → 32개의 action 토큰
-#   - Time:   sincos PE로 스칼라 t → 1024차원 벡터로 변환
-#             action 토큰과 concat 후 MLP → 시간 정보를 action 임베딩에 혼합
-#   - Flow Matching: x_t = t·noise + (1-t)·actions  (학습 시 중간 상태 생성)
-#   - suffix = [state(1), action(32)] = 33 토큰
-#   - ar_mask: [True, True, False×31]
-#     → state(cumsum=1)는 action(cumsum=2)을 볼 수 없음
-#     → action끼리는 양방향 attention (cumsum=2 끼리 동일)
+💡 Step 5 요약:
+  로봇 state와 (노이즈 섞인) action을 Action Expert 차원(1024)으로 임베딩.
+  - State:  Linear(7→1024) → 1개의 state 토큰
+  - Action: Linear(7→1024) → 32개의 action 토큰
+  - Time:   sincos PE로 스칼라 t → 1024차원 벡터로 변환
+            action 토큰과 concat 후 MLP → 시간 정보를 action 임베딩에 혼합
+  - Flow Matching: x_t = t·noise + (1-t)·actions  (학습 시 중간 상태 생성)
+  - suffix = [state(1), action(32)] = 33 토큰
+  - ar_mask: [True, True, False×31]
+    → state(cumsum=1)는 action(cumsum=2)을 볼 수 없음
+    → action끼리는 양방향 attention (cumsum=2 끼리 동일)
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -566,16 +566,16 @@ positions = jnp.cumsum(input_mask, axis=1) - 1
 # - positions: [4, 817] int32
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 💡 Step 6 요약:
-#   어떤 토큰이 어떤 토큰을 볼 수 있는지 결정하는 [817,817] 마스크 생성.
-#   - ar_mask를 cumsum으로 그룹화: prefix(0) / state(1) / action(2)
-#   - 규칙: cumsum[key] <= cumsum[query] 이면 참조 가능
-#     → prefix끼리 양방향  (0<=0)
-#     → action→prefix 가능 (0<=2), prefix→action 불가 (2<=0 ✗)
-#     → action→state 가능  (1<=2), state→action 불가  (2<=1 ✗)
-#     → action끼리 양방향  (2<=2)
-#   - 이 설계의 핵심: prefix는 suffix에 영향받지 않음
-#     → 추론 시 prefix KV Cache를 안전하게 재사용할 수 있는 근거
+💡 Step 6 요약:
+  어떤 토큰이 어떤 토큰을 볼 수 있는지 결정하는 [817,817] 마스크 생성.
+  - ar_mask를 cumsum으로 그룹화: prefix(0) / state(1) / action(2)
+  - 규칙: cumsum[key] <= cumsum[query] 이면 참조 가능
+    → prefix끼리 양방향  (0<=0)
+    → action→prefix 가능 (0<=2), prefix→action 불가 (2<=0 ✗)
+    → action→state 가능  (1<=2), state→action 불가  (2<=1 ✗)
+    → action끼리 양방향  (2<=2)
+  - 이 설계의 핵심: prefix는 suffix에 영향받지 않음
+    → 추론 시 prefix KV Cache를 안전하게 재사용할 수 있는 근거
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -632,13 +632,13 @@ for i, x in enumerate(xs):
 # gates = [None, None]          (π₀는 gate 없음)
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 💡 Step 7-1 요약:
-#   Attention 전에 각 expert의 입력을 독립적으로 정규화.
-#   - Expert 0 (PaliGemma): scale 파라미터 크기 [2048]
-#   - Expert 1 (Action Expert): scale 파라미터 크기 [1024]
-#   - 두 expert 모두 일반 RMSNorm 사용 (π₀는 AdaRMS 없음)
-#   - RMSNorm: 각 토큰 벡터의 RMS로 나누어 크기를 맞춤
-#     (LayerNorm과 달리 평균 빼기 없이 분산만 정규화)
+💡 Step 7-1 요약:
+  Attention 전에 각 expert의 입력을 독립적으로 정규화.
+  - Expert 0 (PaliGemma): scale 파라미터 크기 [2048]
+  - Expert 1 (Action Expert): scale 파라미터 크기 [1024]
+  - 두 expert 모두 일반 RMSNorm 사용 (π₀는 AdaRMS 없음)
+  - RMSNorm: 각 토큰 벡터의 RMS로 나누어 크기를 맞춤
+    (LayerNorm과 달리 평균 빼기 없이 분산만 정규화)
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -683,14 +683,14 @@ qkvs.append((q_1, k_1, v_1))
 #          ^^^ 입력 차원은 다르지만, 출력(head_dim=256)은 같음!
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 💡 Step 7-2 요약:
-#   각 expert가 서로 다른 가중치로 QKV를 계산하되, 출력 head_dim=256은 통일.
-#   - Expert 0: 2048 → 256 (Q: 8heads, K/V: 1head)
-#   - Expert 1: 1024 → 256 (Q: 8heads, K/V: 1head)
-#   - 다른 입력 차원을 같은 attention 공간으로 매핑하는 핵심 단계
-#   - K/V head 수=1 (Grouped Query Attention): 메모리 절약
-#     → 8개 Q가 1개 K,V를 공유 → 8배 메모리 절약
-#   - 이 projection 후 Q,K,V를 concat하여 shared attention 계산 가능
+💡 Step 7-2 요약:
+  각 expert가 서로 다른 가중치로 QKV를 계산하되, 출력 head_dim=256은 통일.
+  - Expert 0: 2048 → 256 (Q: 8heads, K/V: 1head)
+  - Expert 1: 1024 → 256 (Q: 8heads, K/V: 1head)
+  - 다른 입력 차원을 같은 attention 공간으로 매핑하는 핵심 단계
+  - K/V head 수=1 (Grouped Query Attention): 메모리 절약
+    → 8개 Q가 1개 K,V를 공유 → 8배 메모리 절약
+  - 이 projection 후 Q,K,V를 concat하여 shared attention 계산 가능
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -737,13 +737,13 @@ q *= 256 ** -0.5  # scale by 1/√head_dim
 # v: [4, 817, 1, 256]
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 💡 Step 7-3 요약:
-#   두 expert의 QKV를 시퀀스 축으로 concat 후 위치 인코딩 적용.
-#   - concat: prefix(784) + suffix(33) = 817 토큰으로 합쳐짐
-#     → 이 시점부터 두 expert의 토큰이 하나의 시퀀스로 처리됨 (Shared Attention)
-#   - RoPE: 절대 위치 인코딩과 달리 Q,K에만 회전 변환을 적용
-#     → 토큰 간 상대 위치가 내적(attention score)에 자연스럽게 반영됨
-#   - q에 1/√256 스케일링: softmax 전 값이 너무 커지지 않도록 안정화
+💡 Step 7-3 요약:
+  두 expert의 QKV를 시퀀스 축으로 concat 후 위치 인코딩 적용.
+  - concat: prefix(784) + suffix(33) = 817 토큰으로 합쳐짐
+    → 이 시점부터 두 expert의 토큰이 하나의 시퀀스로 처리됨 (Shared Attention)
+  - RoPE: 절대 위치 인코딩과 달리 Q,K에만 회전 변환을 적용
+    → 토큰 간 상대 위치가 내적(attention score)에 자연스럽게 반영됨
+  - q에 1/√256 스케일링: softmax 전 값이 너무 커지지 않도록 안정화
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -786,14 +786,14 @@ encoded = einops.rearrange(encoded, "B T K G H -> B T (K G) H")
 # encoded: [4, 817, 8, 256]  (attention-weighted values)
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 💡 Step 7-4 요약:
-#   817개 전체 토큰(prefix+suffix)에 대해 attention 계산.
-#   - Step 6에서 만든 [817,817] 마스크를 적용
-#     → 허용되지 않은 위치는 -∞로 설정 → softmax 후 확률 0
-#   - 두 expert의 토큰이 하나의 attention 행렬을 공유
-#     → Action Expert 토큰이 PaliGemma 토큰(이미지/언어)을 직접 참조 가능
-#   - 이것이 Transfusion 구조의 핵심:
-#     서로 다른 모달리티(언어, 이미지, 행동)가 하나의 attention에서 상호작용
+💡 Step 7-4 요약:
+  817개 전체 토큰(prefix+suffix)에 대해 attention 계산.
+  - Step 6에서 만든 [817,817] 마스크를 적용
+    → 허용되지 않은 위치는 -∞로 설정 → softmax 후 확률 0
+  - 두 expert의 토큰이 하나의 attention 행렬을 공유
+    → Action Expert 토큰이 PaliGemma 토큰(이미지/언어)을 직접 참조 가능
+  - 이것이 Transfusion 구조의 핵심:
+    서로 다른 모달리티(언어, 이미지, 행동)가 하나의 attention에서 상호작용
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -839,13 +839,13 @@ out.append(expert_out_1)
 # out[1]: [4, 33, 1024]   (Suffix, Expert 1 weight 사용)
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 💡 Step 7-5 요약:
-#   공유 attention 결과를 다시 각 expert의 차원으로 분리하여 복원.
-#   - encoded [4,817,8,256]를 앞 784개/뒤 33개로 분할
-#   - Expert 0: 8×256 → 2048  (PaliGemma 원래 차원 복원)
-#   - Expert 1: 8×256 → 1024  (Action Expert 원래 차원 복원)
-#   - 각 expert가 서로 다른 출력 projection 가중치를 가짐
-#   - 이로써 공유 attention 정보가 각자의 표현 공간으로 매핑됨
+💡 Step 7-5 요약:
+  공유 attention 결과를 다시 각 expert의 차원으로 분리하여 복원.
+  - encoded [4,817,8,256]를 앞 784개/뒤 33개로 분할
+  - Expert 0: 8×256 → 2048  (PaliGemma 원래 차원 복원)
+  - Expert 1: 8×256 → 1024  (Action Expert 원래 차원 복원)
+  - 각 expert가 서로 다른 출력 projection 가중치를 가짐
+  - 이로써 공유 attention 정보가 각자의 표현 공간으로 매핑됨
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -881,13 +881,13 @@ xs = [
 # xs[1]: [4, 33, 1024]
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 💡 Step 7-6 요약:
-#   Attention 출력을 원래 입력에 더하는 첫 번째 Residual Connection.
-#   - xs[i] = xs[i] + attn_out[i]  (원래 정보 + attention으로 얻은 새 정보)
-#   - Residual의 역할: 깊은 네트워크에서 기울기 소실 방지
-#     → attention이 0에 가까워도 원래 신호가 그대로 흐름
-#   - π₀는 gate=None → 단순 덧셈 (π₀.₅는 gate로 가중 합산)
-#   - 두 expert 각각 독립적으로 수행 (차원 유지: 2048, 1024)
+💡 Step 7-6 요약:
+  Attention 출력을 원래 입력에 더하는 첫 번째 Residual Connection.
+  - xs[i] = xs[i] + attn_out[i]  (원래 정보 + attention으로 얻은 새 정보)
+  - Residual의 역할: 깊은 네트워크에서 기울기 소실 방지
+    → attention이 0에 가까워도 원래 신호가 그대로 흐름
+  - π₀는 gate=None → 단순 덧셈 (π₀.₅는 gate로 가중 합산)
+  - 두 expert 각각 독립적으로 수행 (차원 유지: 2048, 1024)
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -936,15 +936,15 @@ xs = [
 # xs[1]: [4, 33, 1024]   (Suffix after full transformer block)
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 💡 Step 7-7 요약:
-#   Attention 이후 각 토큰을 독립적으로 비선형 변환하는 FFN.
-#   - Expert별 완전히 독립적인 가중치 사용
-#   - Expert 0: 2048 → 16384 → 2048  (8배 확장 후 복원)
-#   - Expert 1: 1024 → 4096 → 1024   (4배 확장 후 복원)
-#   - GeGLU 활성화 (GELU gate × linear): 정보 선택적 통과
-#   - 두 번째 Residual: xs[i] = xs[i] + ffn_out[i]
-#   - FFN이 attention이 섞어온 정보를 각 expert의 "개인 처리"로 소화
-#   - Layer 0 완료 → Layer 1~17도 동일 과정 반복
+💡 Step 7-7 요약:
+  Attention 이후 각 토큰을 독립적으로 비선형 변환하는 FFN.
+  - Expert별 완전히 독립적인 가중치 사용
+  - Expert 0: 2048 → 16384 → 2048  (8배 확장 후 복원)
+  - Expert 1: 1024 → 4096 → 1024   (4배 확장 후 복원)
+  - GeGLU 활성화 (GELU gate × linear): 정보 선택적 통과
+  - 두 번째 Residual: xs[i] = xs[i] + ffn_out[i]
+  - FFN이 attention이 섞어온 정보를 각 expert의 "개인 처리"로 소화
+  - Layer 0 완료 → Layer 1~17도 동일 과정 반복
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -981,12 +981,12 @@ for layer_idx in range(1, 18):
 # xs[1]: [4, 33, 1024]   (Suffix, fully processed)
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 💡 Step 8 요약:
-#   Layer 0의 구조를 17번 더 반복 (총 18 layers).
-#   - 각 layer마다 고유한 가중치를 가짐 (nn.scan으로 효율적 구현)
-#   - 매 layer마다 prefix↔suffix 간 cross-attention이 일어남
-#     → 깊어질수록 이미지/언어 정보가 action 토큰에 점점 더 녹아듦
-#   - 18층을 거치면서 action 토큰은 "현재 관찰에 맞는 행동 속도"를 표현
+💡 Step 8 요약:
+  Layer 0의 구조를 17번 더 반복 (총 18 layers).
+  - 각 layer마다 고유한 가중치를 가짐 (nn.scan으로 효율적 구현)
+  - 매 layer마다 prefix↔suffix 간 cross-attention이 일어남
+    → 깊어질수록 이미지/언어 정보가 action 토큰에 점점 더 녹아듦
+  - 18층을 거치면서 action 토큰은 "현재 관찰에 맞는 행동 속도"를 표현
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -1012,12 +1012,12 @@ for i, (x, final_norm) in enumerate(zip(xs, self.final_norms)):
 # outputs[1]: [4, 33, 1024]   (Suffix final output)
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 💡 Step 9 요약:
-#   18개 Transformer layer를 모두 통과한 후 마지막 정규화.
-#   - 각 expert마다 독립적인 final RMSNorm 가중치 적용
-#   - 이후 action 예측에만 Suffix(Expert 1) 출력이 사용됨
-#   - Prefix(Expert 0) 출력은 학습 시에는 사용되지 않음
-#     (추론 시에도 KV Cache에 이미 반영되어 있어 별도 처리 불필요)
+💡 Step 9 요약:
+  18개 Transformer layer를 모두 통과한 후 마지막 정규화.
+  - 각 expert마다 독립적인 final RMSNorm 가중치 적용
+  - 이후 action 예측에만 Suffix(Expert 1) 출력이 사용됨
+  - Prefix(Expert 0) 출력은 학습 시에는 사용되지 않음
+    (추론 시에도 KV Cache에 이미 반영되어 있어 별도 처리 불필요)
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -1045,14 +1045,14 @@ v_t = self.action_out_proj(action_output)
 # v_t: [4, 32, 7]  (Predicted velocity field)
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 💡 Step 10 요약:
-#   Transformer를 통과한 action 토큰을 실제 행동 차원으로 변환.
-#   - suffix_out[:, -32:]: 33개 중 마지막 32개만 추출 (state 토큰 제외)
-#   - Linear(1024→7): Action Expert 차원 → 로봇 DoF 차원
-#   - 출력 v_t는 Flow Matching에서의 "속도(velocity)"
-#     = 현재 x_t에서 어느 방향으로 얼마나 이동해야 하는지
-#   - 학습: 이 v_t와 정답 u_t의 차이로 loss 계산
-#   - 추론: 이 v_t를 Euler step에 사용하여 x_t를 업데이트
+💡 Step 10 요약:
+  Transformer를 통과한 action 토큰을 실제 행동 차원으로 변환.
+  - suffix_out[:, -32:]: 33개 중 마지막 32개만 추출 (state 토큰 제외)
+  - Linear(1024→7): Action Expert 차원 → 로봇 DoF 차원
+  - 출력 v_t는 Flow Matching에서의 "속도(velocity)"
+    = 현재 x_t에서 어느 방향으로 얼마나 이동해야 하는지
+  - 학습: 이 v_t와 정답 u_t의 차이로 loss 계산
+  - 추론: 이 v_t를 Euler step에 사용하여 x_t를 업데이트
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -1081,14 +1081,14 @@ loss = jnp.mean(jnp.square(v_t - u_t), axis=-1)
 # loss: [4, 32] (training objective)
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 💡 Step 11 요약:
-#   Flow Matching 학습 목표: 모델이 예측한 속도와 정답 속도의 MSE.
-#   - 정답 속도 u_t = noise - actions  (직선 보간 경로의 접선 벡터)
-#     t와 무관한 상수 → 어떤 t에서 샘플링해도 동일한 방향
-#   - 손실 = ||v_t - u_t||^2  (L2 거리)
-#   - 이 loss를 역전파하면 모델은 "noise → data 방향"을 학습
-#   - 학습 전 과정이 단 1번의 forward pass로 끝남
-#     (이유: ground truth actions로 직접 x_t를 만들 수 있으므로)
+💡 Step 11 요약:
+  Flow Matching 학습 목표: 모델이 예측한 속도와 정답 속도의 MSE.
+  - 정답 속도 u_t = noise - actions  (직선 보간 경로의 접선 벡터)
+    t와 무관한 상수 → 어떤 t에서 샘플링해도 동일한 방향
+  - 손실 = ||v_t - u_t||^2  (L2 거리)
+  - 이 loss를 역전파하면 모델은 "noise → data 방향"을 학습
+  - 학습 전 과정이 단 1번의 forward pass로 끝남
+    (이유: ground truth actions로 직접 x_t를 만들 수 있으므로)
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -1166,23 +1166,23 @@ def sample_actions(self, rng, observation, num_steps=10):
     return x_0  # [4, 32, 7]  ← Denoised actions!
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 💡 Inference 요약:
-#   Pure noise에서 시작하여 Euler integration으로 clean action을 복원.
-#   [Phase 1] Prefix KV Cache (1회 실행):
-#     - 이미지/텍스트 토큰을 한 번만 Transformer에 통과
-#     - 18 layers × [4, 784, 1, 256] KV 값을 메모리에 저장
-#     - 추론 내내 관찰(이미지/언어)은 변하지 않으므로 재계산 불필요
-#
-#   [Phase 2] Denoising Loop (10회 반복):
-#     for t in [1.0, 0.9, ..., 0.1]:
-#       1. 현재 x_t와 t로 suffix 임베딩 재생성  ← x_t, t가 매번 바뀜
-#       2. KV Cache + suffix 토큰으로 Transformer 실행 (Expert 1만)
-#       3. v_t = 예측된 속도  (현재 위치에서 data 방향)
-#       4. x_{t+dt} = x_t + (-0.1) × v_t  (Euler step)
-#     x_0 = 최종 action  (noise → clean action)
-#
-#   핵심: prefix 1회 + suffix 10회 = 총 11회 Transformer 실행
-#         (매번 전체 재계산하면 110회 → KV Cache로 10배 절약)
+💡 Inference 요약:
+  Pure noise에서 시작하여 Euler integration으로 clean action을 복원.
+  [Phase 1] Prefix KV Cache (1회 실행):
+    - 이미지/텍스트 토큰을 한 번만 Transformer에 통과
+    - 18 layers × [4, 784, 1, 256] KV 값을 메모리에 저장
+    - 추론 내내 관찰(이미지/언어)은 변하지 않으므로 재계산 불필요
+
+  [Phase 2] Denoising Loop (10회 반복):
+    for t in [1.0, 0.9, ..., 0.1]:
+      1. 현재 x_t와 t로 suffix 임베딩 재생성  ← x_t, t가 매번 바뀜
+      2. KV Cache + suffix 토큰으로 Transformer 실행 (Expert 1만)
+      3. v_t = 예측된 속도  (현재 위치에서 data 방향)
+      4. x_{t+dt} = x_t + (-0.1) × v_t  (Euler step)
+    x_0 = 최종 action  (noise → clean action)
+
+  핵심: prefix 1회 + suffix 10회 = 총 11회 Transformer 실행
+        (매번 전체 재계산하면 110회 → KV Cache로 10배 절약)
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
