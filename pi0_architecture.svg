@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 2800" font-family="'Consolas', 'Monaco', monospace">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 2620" font-family="'Consolas', 'Monaco', monospace">
 
   <!-- Background -->
-  <rect width="1600" height="2800" fill="#0f1117"/>
+  <rect width="1600" height="2620" fill="#0f1117"/>
 
   <!-- ═══════════════════════════════════════════════ -->
   <!-- TITLE -->
@@ -10,22 +10,24 @@
   <text x="800" y="48" text-anchor="middle" font-size="28" font-weight="bold" fill="#e2e8f0">π₀ Transfusion Multi-Expert Transformer — 완전 구조도</text>
   <text x="800" y="74" text-anchor="middle" font-size="15" fill="#94a3b8">Batch=4 | Prefix=784 tokens (3×256 image + 16 text) | Suffix=33 tokens (1 state + 32 action) | 18 Layers</text>
 
-  <!-- ─────────── LEGEND ─────────── -->
-  <rect x="20" y="90" width="14" height="14" rx="2" fill="#3b82f6"/>
-  <text x="40" y="102" font-size="12" fill="#94a3b8">Expert 0 · PaliGemma (width=2048)</text>
-  <rect x="220" y="90" width="14" height="14" rx="2" fill="#f97316"/>
-  <text x="240" y="102" font-size="12" fill="#94a3b8">Expert 1 · Action Expert (width=1024)</text>
-  <rect x="460" y="90" width="14" height="14" rx="2" fill="#a855f7"/>
-  <text x="480" y="102" font-size="12" fill="#94a3b8">Shared Attention Space (head_dim=256)</text>
-  <rect x="700" y="90" width="14" height="14" rx="2" fill="#10b981"/>
-  <text x="720" y="102" font-size="12" fill="#94a3b8">Flow Matching</text>
-  <rect x="840" y="90" width="14" height="14" rx="2" fill="#ef4444"/>
-  <text x="860" y="102" font-size="12" fill="#94a3b8">Attention Mask Logic</text>
+  <!-- ─────────── LEGEND (2줄) ─────────── -->
+  <!-- Line 1 -->
+  <rect x="20"  y="85" width="14" height="14" rx="2" fill="#3b82f6"/>
+  <text x="40"  y="97" font-size="12" fill="#94a3b8">Expert 0 · PaliGemma (width=2048)</text>
+  <rect x="310" y="85" width="14" height="14" rx="2" fill="#f97316"/>
+  <text x="330" y="97" font-size="12" fill="#94a3b8">Expert 1 · Action Expert (width=1024)</text>
+  <rect x="620" y="85" width="14" height="14" rx="2" fill="#a855f7"/>
+  <text x="640" y="97" font-size="12" fill="#94a3b8">Shared Attention Space (head_dim=256)</text>
+  <!-- Line 2 -->
+  <rect x="20"  y="104" width="14" height="14" rx="2" fill="#10b981"/>
+  <text x="40"  y="116" font-size="12" fill="#94a3b8">Flow Matching</text>
+  <rect x="200" y="104" width="14" height="14" rx="2" fill="#ef4444"/>
+  <text x="220" y="116" font-size="12" fill="#94a3b8">Attention Mask Logic</text>
 
   <!-- ═══════════════════════════════════════════════════════════════════ -->
   <!-- SECTION 1: INPUT -->
   <!-- ═══════════════════════════════════════════════════════════════════ -->
-  <rect x="20" y="116" width="1560" height="2" fill="#334155"/>
+  <rect x="20" y="126" width="1560" height="2" fill="#334155"/>
   <text x="30" y="138" font-size="16" font-weight="bold" fill="#f1f5f9">① 입력 데이터 (Step 0-1)</text>
 
   <!-- Images -->
@@ -67,7 +69,8 @@
   <text x="30" y="268" font-size="16" font-weight="bold" fill="#f1f5f9">② 임베딩: Prefix (Step 2-4) &amp; Suffix (Step 5)</text>
 
   <!-- ─── SigLIP (Step 2) ─── -->
-  <rect x="30" y="278" width="480" height="230" rx="8" fill="#172554" stroke="#3b82f6" stroke-width="2"/>
+  <!-- 블록: y=278~478 (height=200), 내용 4개 row만 포함 -->
+  <rect x="30" y="278" width="480" height="200" rx="8" fill="#172554" stroke="#3b82f6" stroke-width="2"/>
   <text x="270" y="298" text-anchor="middle" font-size="14" font-weight="bold" fill="#3b82f6">SigLIP Vision Encoder (Step 2)</text>
   <text x="270" y="313" text-anchor="middle" font-size="11" fill="#64748b">ViT-So400m/14 · pi0.py:114</text>
 
@@ -77,17 +80,15 @@
   <rect x="50" y="354" width="440" height="28" rx="4" fill="#1e3a5f"/>
   <text x="270" y="372" text-anchor="middle" font-size="11" fill="#93c5fd">2D Sinusoidal Pos Embed: [256, 1152] 더하기</text>
 
-  <rect x="50" y="388" width="440" height="50" rx="4" fill="#1e3a5f"/>
-  <text x="270" y="405" text-anchor="middle" font-size="11" fill="#93c5fd">ViT Transformer × 27 layers</text>
-  <text x="270" y="421" text-anchor="middle" font-size="11" fill="#64748b">heads=16, width=1152, mlp=4304</text>
+  <rect x="50" y="388" width="440" height="36" rx="4" fill="#1e3a5f"/>
+  <text x="270" y="404" text-anchor="middle" font-size="11" fill="#93c5fd">ViT Transformer × 27 layers</text>
+  <text x="270" y="418" text-anchor="middle" font-size="11" fill="#64748b">heads=16, width=1152, mlp=4304</text>
 
-  <rect x="50" y="444" width="440" height="28" rx="4" fill="#1e3a5f"/>
-  <text x="270" y="462" text-anchor="middle" font-size="11" fill="#93c5fd">Final Dense: [4,256,1152] → [4,256,2048]</text>
+  <rect x="50" y="430" width="440" height="28" rx="4" fill="#1e3a5f"/>
+  <text x="270" y="449" text-anchor="middle" font-size="11" fill="#93c5fd">Final Dense: [4,256,1152] → [4,256,2048]</text>
 
-  <!-- 3 camera arrows note -->
-  <text x="270" y="492" text-anchor="middle" font-size="11" fill="#f97316">× 3 cameras 각각 독립 처리</text>
-
-  <!-- Output arrow -->
+  <!-- 출력 텍스트: 블록 아래 (y=478+) -->
+  <text x="270" y="493" text-anchor="middle" font-size="11" fill="#f97316">× 3 cameras 각각 독립 처리</text>
   <text x="270" y="510" text-anchor="middle" font-size="12" font-weight="bold" fill="#60a5fa">↓ 3 × [4, 256, 2048] = 768 image tokens</text>
 
   <!-- ─── Text Embedder (Step 3) ─── -->
@@ -231,7 +232,7 @@
   <text x="30" y="794" font-size="16" font-weight="bold" fill="#f1f5f9">④ Transformer Block 상세 (Step 7) — 18 layers 동일 구조 반복</text>
 
   <!-- ─── Outer block container ─── -->
-  <rect x="30" y="804" width="1540" height="620" rx="10" fill="#0f1520" stroke="#475569" stroke-width="2"/>
+  <rect x="30" y="804" width="1540" height="690" rx="10" fill="#0f1520" stroke="#475569" stroke-width="2"/>
 
   <!-- Layer label -->
   <rect x="30" y="804" width="1540" height="28" rx="8" fill="#1e2d45"/>
@@ -287,301 +288,301 @@
   <rect x="1080" y="990" width="200" height="26" rx="3" fill="#1c0f05" stroke="#c2410c"/>
   <text x="1180" y="1007" text-anchor="middle" font-size="11" fill="#fed7aa">k₁,v₁ [4, 33, 1, 256]</text>
 
-  <!-- ─── CONCAT ─── -->
-  <rect x="430" y="980" width="400" height="46" rx="6" fill="#1e1b40" stroke="#a855f7" stroke-width="2"/>
-  <text x="630" y="998" text-anchor="middle" font-size="12" font-weight="bold" fill="#c084fc">jnp.concatenate(axis=1)</text>
-  <text x="630" y="1014" text-anchor="middle" font-size="11" fill="#a78bfa">q: [4,817,8,256]  k,v: [4,817,1,256]</text>
+  <!-- ─── CONCAT ─── (QKV output 라벨 아래 y=1030에 배치) -->
+  <rect x="430" y="1034" width="400" height="46" rx="6" fill="#1e1b40" stroke="#a855f7" stroke-width="2"/>
+  <text x="630" y="1052" text-anchor="middle" font-size="12" font-weight="bold" fill="#c084fc">jnp.concatenate(axis=1)</text>
+  <text x="630" y="1068" text-anchor="middle" font-size="11" fill="#a78bfa">q: [4,817,8,256]  k,v: [4,817,1,256]</text>
 
-  <!-- CONCAT arrows -->
-  <line x1="480" y1="1016" x2="480" y2="988" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="4,2"/>
-  <line x1="780" y1="1016" x2="780" y2="988" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <!-- CONCAT arrows: 아래를 향하는 화살표 (QKV output→CONCAT) -->
+  <line x1="150" y1="1016" x2="630" y2="1034" stroke="#a855f7" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <line x1="970" y1="1016" x2="630" y2="1034" stroke="#a855f7" stroke-width="1.2" stroke-dasharray="4,2"/>
 
   <!-- ────────────────── 7-3: RoPE ────────────────── -->
-  <rect x="430" y="1040" width="400" height="50" rx="6" fill="#1e1b40" stroke="#a855f7" stroke-width="1.5"/>
-  <text x="630" y="1058" text-anchor="middle" font-size="12" font-weight="bold" fill="#c084fc">7-3 · RoPE (Rotary Position Embedding)</text>
-  <text x="630" y="1074" text-anchor="middle" font-size="11" fill="#94a3b8">Q,K에 위치별 회전 변환 · q *= 1/√256 | gemma.py:424</text>
+  <rect x="430" y="1096" width="400" height="50" rx="6" fill="#1e1b40" stroke="#a855f7" stroke-width="1.5"/>
+  <text x="630" y="1114" text-anchor="middle" font-size="12" font-weight="bold" fill="#c084fc">7-3 · RoPE (Rotary Position Embedding)</text>
+  <text x="630" y="1130" text-anchor="middle" font-size="11" fill="#94a3b8">Q,K에 위치별 회전 변환 · q *= 1/√256 | gemma.py:424</text>
 
   <!-- ────────────────── 7-4: GQA ────────────────── -->
-  <rect x="330" y="1105" width="600" height="100" rx="8" fill="#1a0d2e" stroke="#a855f7" stroke-width="2"/>
-  <text x="630" y="1124" text-anchor="middle" font-size="13" font-weight="bold" fill="#c084fc">7-4 · Grouped Query Attention (GQA) — Shared</text>
-  <text x="630" y="1141" text-anchor="middle" font-size="11" fill="#94a3b8">q: [4,817,1,8,256]  k,v: [4,817,1,256]  |  gemma.py:216</text>
-  <text x="630" y="1157" text-anchor="middle" font-size="11" fill="#94a3b8">logits = einsum(BTKGH,BSKH→BKGTS)  →  [4,1,8,817,817]</text>
-  <text x="630" y="1173" text-anchor="middle" font-size="11" fill="#94a3b8">masked_logits: ✗ → -2.38e38 → softmax → probs → encoded [4,817,8,256]</text>
-  <text x="630" y="1189" text-anchor="middle" font-size="11" fill="#ef4444">attn_mask [4,817,817]: 두 expert 토큰이 하나의 attention matrix 공유</text>
+  <rect x="280" y="1164" width="700" height="110" rx="8" fill="#1a0d2e" stroke="#a855f7" stroke-width="2"/>
+  <text x="630" y="1184" text-anchor="middle" font-size="13" font-weight="bold" fill="#c084fc">7-4 · Grouped Query Attention (GQA) — Shared</text>
+  <text x="630" y="1201" text-anchor="middle" font-size="11" fill="#94a3b8">q: [4,817,1,8,256]  k,v: [4,817,1,256]  |  gemma.py:216</text>
+  <text x="630" y="1217" text-anchor="middle" font-size="11" fill="#94a3b8">logits = einsum(BTKGH,BSKH→BKGTS)  →  [4,1,8,817,817]</text>
+  <text x="630" y="1233" text-anchor="middle" font-size="11" fill="#94a3b8">masked_logits: ✗ → -2.38e38 → softmax → probs → encoded [4,817,8,256]</text>
+  <text x="630" y="1249" text-anchor="middle" font-size="11" fill="#ef4444">attn_mask [4,817,817]: 두 expert 토큰이 하나의 attention matrix 공유</text>
 
   <!-- ────────────────── 7-5: Output Proj ────────────────── -->
-  <rect x="50" y="1220" width="380" height="50" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
-  <text x="240" y="1238" text-anchor="middle" font-size="12" font-weight="bold" fill="#60a5fa">7-5 · Output Proj (Expert 0)</text>
-  <text x="240" y="1254" text-anchor="middle" font-size="11" fill="#94a3b8">encoded[:,0:784] → Einsum[8,256,2048] → [4,784,2048]</text>
+  <rect x="50" y="1292" width="380" height="50" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="240" y="1310" text-anchor="middle" font-size="12" font-weight="bold" fill="#60a5fa">7-5 · Output Proj (Expert 0)</text>
+  <text x="240" y="1326" text-anchor="middle" font-size="11" fill="#94a3b8">encoded[:,0:784] → Einsum[8,256,2048] → [4,784,2048]</text>
 
-  <rect x="830" y="1220" width="380" height="50" rx="6" fill="#2d1b0e" stroke="#f97316" stroke-width="1.5"/>
-  <text x="1020" y="1238" text-anchor="middle" font-size="12" font-weight="bold" fill="#fb923c">7-5 · Output Proj (Expert 1)</text>
-  <text x="1020" y="1254" text-anchor="middle" font-size="11" fill="#94a3b8">encoded[:,784:817] → Einsum[8,256,1024] → [4,33,1024]</text>
+  <rect x="830" y="1292" width="380" height="50" rx="6" fill="#2d1b0e" stroke="#f97316" stroke-width="1.5"/>
+  <text x="1020" y="1310" text-anchor="middle" font-size="12" font-weight="bold" fill="#fb923c">7-5 · Output Proj (Expert 1)</text>
+  <text x="1020" y="1326" text-anchor="middle" font-size="11" fill="#94a3b8">encoded[:,784:817] → Einsum[8,256,1024] → [4,33,1024]</text>
 
   <!-- ────────────────── 7-6: Residual 1 ────────────────── -->
-  <rect x="50" y="1284" width="380" height="36" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1"/>
-  <text x="240" y="1300" text-anchor="middle" font-size="12" fill="#60a5fa">7-6 · Residual: xs[0] = xs[0] + out[0]  [4,784,2048]</text>
-  <text x="240" y="1314" text-anchor="middle" font-size="11" fill="#64748b">gate=None (π₀) → 단순 덧셈</text>
+  <rect x="50" y="1358" width="380" height="36" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1"/>
+  <text x="240" y="1374" text-anchor="middle" font-size="12" fill="#60a5fa">7-6 · Residual: xs[0] = xs[0] + out[0]  [4,784,2048]</text>
+  <text x="240" y="1388" text-anchor="middle" font-size="11" fill="#64748b">gate=None (π₀) → 단순 덧셈</text>
 
-  <rect x="830" y="1284" width="380" height="36" rx="6" fill="#2d1b0e" stroke="#f97316" stroke-width="1"/>
-  <text x="1020" y="1300" text-anchor="middle" font-size="12" fill="#fb923c">7-6 · Residual: xs[1] = xs[1] + out[1]  [4,33,1024]</text>
-  <text x="1020" y="1314" text-anchor="middle" font-size="11" fill="#64748b">gate=None (π₀) → 단순 덧셈</text>
+  <rect x="830" y="1358" width="380" height="36" rx="6" fill="#2d1b0e" stroke="#f97316" stroke-width="1"/>
+  <text x="1020" y="1374" text-anchor="middle" font-size="12" fill="#fb923c">7-6 · Residual: xs[1] = xs[1] + out[1]  [4,33,1024]</text>
+  <text x="1020" y="1388" text-anchor="middle" font-size="11" fill="#64748b">gate=None (π₀) → 단순 덧셈</text>
 
   <!-- ────────────────── 7-7: FFN ────────────────── -->
-  <rect x="50" y="1334" width="380" height="76" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
-  <text x="240" y="1352" text-anchor="middle" font-size="12" font-weight="bold" fill="#60a5fa">7-7 · FFN (Expert 0) — GeGLU</text>
-  <text x="240" y="1368" text-anchor="middle" font-size="11" fill="#94a3b8">pre_ffw_norm → gating[2,2048,16384]</text>
-  <text x="240" y="1384" text-anchor="middle" font-size="11" fill="#94a3b8">gelu(gate)×ff1 → [4,784,16384] → linear[16384,2048]</text>
-  <text x="240" y="1400" text-anchor="middle" font-size="11" fill="#94a3b8">+ Residual → xs[0] [4, 784, 2048]</text>
+  <rect x="50" y="1410" width="380" height="76" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="240" y="1428" text-anchor="middle" font-size="12" font-weight="bold" fill="#60a5fa">7-7 · FFN (Expert 0) — GeGLU</text>
+  <text x="240" y="1444" text-anchor="middle" font-size="11" fill="#94a3b8">pre_ffw_norm → gating[2,2048,16384]</text>
+  <text x="240" y="1460" text-anchor="middle" font-size="11" fill="#94a3b8">gelu(gate)×ff1 → [4,784,16384] → linear[16384,2048]</text>
+  <text x="240" y="1476" text-anchor="middle" font-size="11" fill="#94a3b8">+ Residual → xs[0] [4, 784, 2048]</text>
 
-  <rect x="830" y="1334" width="380" height="76" rx="6" fill="#2d1b0e" stroke="#f97316" stroke-width="1.5"/>
-  <text x="1020" y="1352" text-anchor="middle" font-size="12" font-weight="bold" fill="#fb923c">7-7 · FFN (Expert 1) — GeGLU</text>
-  <text x="1020" y="1368" text-anchor="middle" font-size="11" fill="#94a3b8">pre_ffw_norm → gating[2,1024,4096]</text>
-  <text x="1020" y="1384" text-anchor="middle" font-size="11" fill="#94a3b8">gelu(gate)×ff1 → [4,33,4096] → linear[4096,1024]</text>
-  <text x="1020" y="1400" text-anchor="middle" font-size="11" fill="#94a3b8">+ Residual → xs[1] [4, 33, 1024]</text>
+  <rect x="830" y="1410" width="380" height="76" rx="6" fill="#2d1b0e" stroke="#f97316" stroke-width="1.5"/>
+  <text x="1020" y="1428" text-anchor="middle" font-size="12" font-weight="bold" fill="#fb923c">7-7 · FFN (Expert 1) — GeGLU</text>
+  <text x="1020" y="1444" text-anchor="middle" font-size="11" fill="#94a3b8">pre_ffw_norm → gating[2,1024,4096]</text>
+  <text x="1020" y="1460" text-anchor="middle" font-size="11" fill="#94a3b8">gelu(gate)×ff1 → [4,33,4096] → linear[4096,1024]</text>
+  <text x="1020" y="1476" text-anchor="middle" font-size="11" fill="#94a3b8">+ Residual → xs[1] [4, 33, 1024]</text>
 
   <!-- middle annotation -->
-  <rect x="450" y="1334" width="360" height="76" rx="6" fill="#0f1520" stroke="#475569" stroke-width="1"/>
-  <text x="630" y="1354" text-anchor="middle" font-size="12" font-weight="bold" fill="#94a3b8">각 Expert 독립 FFN</text>
-  <text x="630" y="1372" text-anchor="middle" font-size="11" fill="#64748b">공유 attention 후 개인 처리</text>
-  <text x="630" y="1390" text-anchor="middle" font-size="11" fill="#64748b">Exp 0: ×8 확장  2048→16384</text>
-  <text x="630" y="1408" text-anchor="middle" font-size="11" fill="#64748b">Exp 1: ×4 확장  1024→4096</text>
+  <rect x="450" y="1410" width="360" height="76" rx="6" fill="#0f1520" stroke="#475569" stroke-width="1"/>
+  <text x="630" y="1430" text-anchor="middle" font-size="12" font-weight="bold" fill="#94a3b8">각 Expert 독립 FFN</text>
+  <text x="630" y="1448" text-anchor="middle" font-size="11" fill="#64748b">공유 attention 후 개인 처리</text>
+  <text x="630" y="1464" text-anchor="middle" font-size="11" fill="#64748b">Exp 0: ×8 확장  2048→16384</text>
+  <text x="630" y="1480" text-anchor="middle" font-size="11" fill="#64748b">Exp 1: ×4 확장  1024→4096</text>
 
   <!-- ═══════════════════════════════════════════════════════════════════ -->
   <!-- SECTION 5: 18 LAYERS SCAN -->
   <!-- ═══════════════════════════════════════════════════════════════════ -->
-  <rect x="20" y="1440" width="1560" height="2" fill="#334155"/>
-  <text x="30" y="1462" font-size="16" font-weight="bold" fill="#f1f5f9">⑤ nn.scan — 18 Layers 반복 (Step 8)</text>
+  <rect x="20" y="1516" width="1560" height="2" fill="#334155"/>
+  <text x="30" y="1538" font-size="16" font-weight="bold" fill="#f1f5f9">⑤ nn.scan — 18 Layers 반복 (Step 8)</text>
 
-  <rect x="30" y="1472" width="1540" height="56" rx="8" fill="#1a1a2e" stroke="#6366f1" stroke-width="2"/>
+  <rect x="30" y="1548" width="1540" height="56" rx="8" fill="#1a1a2e" stroke="#6366f1" stroke-width="2"/>
   <!-- Layer boxes -->
-  <rect x="60" y="1480" width="80" height="36" rx="4" fill="#1d4ed8"/>
-  <text x="100" y="1501" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Layer 0</text>
-  <text x="100" y="1514" text-anchor="middle" font-size="10" fill="#bfdbfe">distinct W</text>
-  <rect x="160" y="1490" width="16" height="4" fill="#6366f1"/>
-  <rect x="196" y="1480" width="80" height="36" rx="4" fill="#1d4ed8"/>
-  <text x="236" y="1501" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Layer 1</text>
-  <text x="236" y="1514" text-anchor="middle" font-size="10" fill="#bfdbfe">distinct W</text>
-  <rect x="296" y="1490" width="16" height="4" fill="#6366f1"/>
-  <rect x="332" y="1480" width="60" height="36" rx="4" fill="#374151"/>
-  <text x="362" y="1503" text-anchor="middle" font-size="14" fill="#9ca3af">···</text>
-  <rect x="412" y="1490" width="16" height="4" fill="#6366f1"/>
-  <rect x="448" y="1480" width="80" height="36" rx="4" fill="#1d4ed8"/>
-  <text x="488" y="1501" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Layer 17</text>
-  <text x="488" y="1514" text-anchor="middle" font-size="10" fill="#bfdbfe">distinct W</text>
+  <rect x="60" y="1556" width="80" height="36" rx="4" fill="#1d4ed8"/>
+  <text x="100" y="1577" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Layer 0</text>
+  <text x="100" y="1590" text-anchor="middle" font-size="10" fill="#bfdbfe">distinct W</text>
+  <rect x="160" y="1566" width="16" height="4" fill="#6366f1"/>
+  <rect x="196" y="1556" width="80" height="36" rx="4" fill="#1d4ed8"/>
+  <text x="236" y="1577" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Layer 1</text>
+  <text x="236" y="1590" text-anchor="middle" font-size="10" fill="#bfdbfe">distinct W</text>
+  <rect x="296" y="1566" width="16" height="4" fill="#6366f1"/>
+  <rect x="332" y="1556" width="60" height="36" rx="4" fill="#374151"/>
+  <text x="362" y="1579" text-anchor="middle" font-size="14" fill="#9ca3af">···</text>
+  <rect x="412" y="1566" width="16" height="4" fill="#6366f1"/>
+  <rect x="448" y="1556" width="80" height="36" rx="4" fill="#1d4ed8"/>
+  <text x="488" y="1577" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Layer 17</text>
+  <text x="488" y="1590" text-anchor="middle" font-size="10" fill="#bfdbfe">distinct W</text>
 
-  <text x="750" y="1510" font-size="13" fill="#6366f1">→</text>
-  <rect x="780" y="1476" width="760" height="44" rx="6" fill="#0f172a" stroke="#6366f1" stroke-width="1"/>
-  <text x="1160" y="1497" text-anchor="middle" font-size="12" fill="#a5b4fc">매 layer: 구조 동일, 가중치 독립 (variable_axes params:0)</text>
-  <text x="1160" y="1514" text-anchor="middle" font-size="12" fill="#818cf8">18회 cross-attention → image/language 정보가 action 토큰에 점차 융합</text>
+  <text x="750" y="1586" font-size="13" fill="#6366f1">→</text>
+  <rect x="780" y="1552" width="760" height="44" rx="6" fill="#0f172a" stroke="#6366f1" stroke-width="1"/>
+  <text x="1160" y="1573" text-anchor="middle" font-size="12" fill="#a5b4fc">매 layer: 구조 동일, 가중치 독립 (variable_axes params:0)</text>
+  <text x="1160" y="1590" text-anchor="middle" font-size="12" fill="#818cf8">18회 cross-attention → image/language 정보가 action 토큰에 점차 융합</text>
 
   <!-- ═══════════════════════════════════════════════════════════════════ -->
   <!-- SECTION 6: FINAL NORM + OUTPUT -->
   <!-- ═══════════════════════════════════════════════════════════════════ -->
-  <rect x="20" y="1544" width="1560" height="2" fill="#334155"/>
-  <text x="30" y="1566" font-size="16" font-weight="bold" fill="#f1f5f9">⑥ Final Norm → Velocity → Loss (Step 9-11)</text>
+  <rect x="20" y="1620" width="1560" height="2" fill="#334155"/>
+  <text x="30" y="1642" font-size="16" font-weight="bold" fill="#f1f5f9">⑥ Final Norm → Velocity → Loss (Step 9-11)</text>
 
   <!-- Final norm -->
-  <rect x="30" y="1576" width="350" height="58" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
-  <text x="205" y="1595" text-anchor="middle" font-size="12" font-weight="bold" fill="#60a5fa">Step 9 · Final RMSNorm</text>
-  <text x="205" y="1611" text-anchor="middle" font-size="11" fill="#94a3b8">prefix_out [4, 784, 2048]</text>
-  <text x="205" y="1626" text-anchor="middle" font-size="11" fill="#94a3b8">suffix_out  [4, 33, 1024]</text>
+  <rect x="30" y="1652" width="350" height="58" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="205" y="1671" text-anchor="middle" font-size="12" font-weight="bold" fill="#60a5fa">Step 9 · Final RMSNorm</text>
+  <text x="205" y="1687" text-anchor="middle" font-size="11" fill="#94a3b8">prefix_out [4, 784, 2048]</text>
+  <text x="205" y="1702" text-anchor="middle" font-size="11" fill="#94a3b8">suffix_out  [4, 33, 1024]</text>
 
-  <text x="400" y="1608" text-anchor="middle" font-size="18" fill="#64748b">→</text>
+  <text x="400" y="1684" text-anchor="middle" font-size="18" fill="#64748b">→</text>
 
   <!-- Extract action tokens -->
-  <rect x="420" y="1576" width="300" height="58" rx="6" fill="#2d1b0e" stroke="#f97316" stroke-width="1.5"/>
-  <text x="570" y="1595" text-anchor="middle" font-size="12" font-weight="bold" fill="#fb923c">Step 10 · Velocity Prediction</text>
-  <text x="570" y="1611" text-anchor="middle" font-size="11" fill="#94a3b8">suffix_out[:, -32:] → [4,32,1024]</text>
-  <text x="570" y="1626" text-anchor="middle" font-size="11" fill="#94a3b8">action_out_proj Linear(1024→7)</text>
+  <rect x="420" y="1652" width="300" height="58" rx="6" fill="#2d1b0e" stroke="#f97316" stroke-width="1.5"/>
+  <text x="570" y="1671" text-anchor="middle" font-size="12" font-weight="bold" fill="#fb923c">Step 10 · Velocity Prediction</text>
+  <text x="570" y="1687" text-anchor="middle" font-size="11" fill="#94a3b8">suffix_out[:, -32:] → [4,32,1024]</text>
+  <text x="570" y="1702" text-anchor="middle" font-size="11" fill="#94a3b8">action_out_proj Linear(1024→7)</text>
 
-  <text x="745" y="1608" text-anchor="middle" font-size="18" fill="#64748b">→</text>
+  <text x="745" y="1684" text-anchor="middle" font-size="18" fill="#64748b">→</text>
 
   <!-- v_t -->
-  <rect x="760" y="1576" width="200" height="58" rx="6" fill="#0f2d1a" stroke="#10b981" stroke-width="2"/>
-  <text x="860" y="1595" text-anchor="middle" font-size="13" font-weight="bold" fill="#10b981">v_t [4, 32, 7]</text>
-  <text x="860" y="1611" text-anchor="middle" font-size="11" fill="#6ee7b7">Predicted velocity</text>
-  <text x="860" y="1626" text-anchor="middle" font-size="11" fill="#6ee7b7">현재 위치의 이동 방향</text>
+  <rect x="760" y="1652" width="200" height="58" rx="6" fill="#0f2d1a" stroke="#10b981" stroke-width="2"/>
+  <text x="860" y="1671" text-anchor="middle" font-size="13" font-weight="bold" fill="#10b981">v_t [4, 32, 7]</text>
+  <text x="860" y="1687" text-anchor="middle" font-size="11" fill="#6ee7b7">Predicted velocity</text>
+  <text x="860" y="1702" text-anchor="middle" font-size="11" fill="#6ee7b7">현재 위치의 이동 방향</text>
 
-  <text x="985" y="1608" text-anchor="middle" font-size="18" fill="#64748b">→</text>
+  <text x="985" y="1684" text-anchor="middle" font-size="18" fill="#64748b">→</text>
 
   <!-- Loss -->
-  <rect x="1000" y="1576" width="540" height="58" rx="6" fill="#0f2d1a" stroke="#10b981" stroke-width="2"/>
-  <text x="1270" y="1595" text-anchor="middle" font-size="13" font-weight="bold" fill="#10b981">Step 11 · Flow Matching Loss</text>
-  <text x="1270" y="1611" text-anchor="middle" font-size="12" fill="#6ee7b7">u_t = noise - actions  (target velocity)</text>
-  <text x="1270" y="1626" text-anchor="middle" font-size="12" fill="#6ee7b7">loss = mean_squared_error(v_t, u_t)  → [4, 32]</text>
+  <rect x="1000" y="1652" width="540" height="58" rx="6" fill="#0f2d1a" stroke="#10b981" stroke-width="2"/>
+  <text x="1270" y="1671" text-anchor="middle" font-size="13" font-weight="bold" fill="#10b981">Step 11 · Flow Matching Loss</text>
+  <text x="1270" y="1687" text-anchor="middle" font-size="12" fill="#6ee7b7">u_t = noise - actions  (target velocity)</text>
+  <text x="1270" y="1702" text-anchor="middle" font-size="12" fill="#6ee7b7">loss = mean_squared_error(v_t, u_t)  → [4, 32]</text>
 
   <!-- ═══════════════════════════════════════════════════════════════════ -->
   <!-- SECTION 7: INFERENCE DENOISING LOOP -->
   <!-- ═══════════════════════════════════════════════════════════════════ -->
-  <rect x="20" y="1650" width="1560" height="2" fill="#334155"/>
-  <text x="30" y="1672" font-size="16" font-weight="bold" fill="#f1f5f9">⑦ 추론 Denoising Loop — Flow Matching Sampling (Euler Integration)</text>
+  <rect x="20" y="1726" width="1560" height="2" fill="#334155"/>
+  <text x="30" y="1748" font-size="16" font-weight="bold" fill="#f1f5f9">⑦ 추론 Denoising Loop — Flow Matching Sampling (Euler Integration)</text>
 
-  <rect x="30" y="1682" width="1540" height="320" rx="10" fill="#080f1e" stroke="#6366f1" stroke-width="2"/>
+  <rect x="30" y="1758" width="1540" height="320" rx="10" fill="#080f1e" stroke="#6366f1" stroke-width="2"/>
 
   <!-- Phase 1: Prefix cache -->
-  <rect x="50" y="1696" width="460" height="140" rx="8" fill="#0f1e35" stroke="#3b82f6" stroke-width="2"/>
-  <text x="280" y="1715" text-anchor="middle" font-size="13" font-weight="bold" fill="#3b82f6">Phase 1: Prefix KV Cache (1회)</text>
-  <text x="280" y="1731" text-anchor="middle" font-size="11" fill="#93c5fd">embed_prefix(obs) → prefix_tokens [4,784,2048]</text>
-  <text x="280" y="1747" text-anchor="middle" font-size="11" fill="#93c5fd">llm([prefix_tokens, None]) → kv_cache</text>
-  <text x="280" y="1763" text-anchor="middle" font-size="11" fill="#6ee7b7">저장: 18 layers × (k[4,784,1,256], v[4,784,1,256])</text>
-  <text x="280" y="1779" text-anchor="middle" font-size="11" fill="#64748b">이미지/언어 관찰 고정 → 1회만 계산</text>
-  <rect x="70" y="1790" width="420" height="36" rx="4" fill="#0a3060" stroke="#3b82f6" stroke-width="1"/>
-  <text x="280" y="1812" text-anchor="middle" font-size="12" fill="#93c5fd">noise = N(0,I)  →  x_t = noise   (t=1.0)</text>
+  <rect x="50" y="1772" width="460" height="140" rx="8" fill="#0f1e35" stroke="#3b82f6" stroke-width="2"/>
+  <text x="280" y="1791" text-anchor="middle" font-size="13" font-weight="bold" fill="#3b82f6">Phase 1: Prefix KV Cache (1회)</text>
+  <text x="280" y="1807" text-anchor="middle" font-size="11" fill="#93c5fd">embed_prefix(obs) → prefix_tokens [4,784,2048]</text>
+  <text x="280" y="1823" text-anchor="middle" font-size="11" fill="#93c5fd">llm([prefix_tokens, None]) → kv_cache</text>
+  <text x="280" y="1839" text-anchor="middle" font-size="11" fill="#6ee7b7">저장: 18 layers × (k[4,784,1,256], v[4,784,1,256])</text>
+  <text x="280" y="1855" text-anchor="middle" font-size="11" fill="#64748b">이미지/언어 관찰 고정 → 1회만 계산</text>
+  <rect x="70" y="1866" width="420" height="36" rx="4" fill="#0a3060" stroke="#3b82f6" stroke-width="1"/>
+  <text x="280" y="1888" text-anchor="middle" font-size="12" fill="#93c5fd">noise = N(0,I)  →  x_t = noise   (t=1.0)</text>
 
   <!-- Arrow Phase 1 → Phase 2 -->
-  <line x1="510" y1="1766" x2="580" y2="1766" stroke="#6366f1" stroke-width="2" marker-end="url(#arr)"/>
-  <text x="545" y="1758" text-anchor="middle" font-size="11" fill="#6366f1">×10</text>
+  <line x1="510" y1="1842" x2="580" y2="1842" stroke="#6366f1" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="545" y="1834" text-anchor="middle" font-size="11" fill="#6366f1">×10</text>
 
   <!-- Phase 2: Denoising loop -->
-  <rect x="580" y="1696" width="960" height="280" rx="8" fill="#0f172a" stroke="#6366f1" stroke-width="2"/>
-  <text x="1060" y="1715" text-anchor="middle" font-size="13" font-weight="bold" fill="#a5b4fc">Phase 2: Denoising Loop — jax.lax.while_loop</text>
-  <text x="1060" y="1731" text-anchor="middle" font-size="11" fill="#818cf8">t: 1.0 → 0.9 → 0.8 → ··· → 0.1 (num_steps=10, dt=-0.1)</text>
+  <rect x="580" y="1772" width="960" height="280" rx="8" fill="#0f172a" stroke="#6366f1" stroke-width="2"/>
+  <text x="1060" y="1791" text-anchor="middle" font-size="13" font-weight="bold" fill="#a5b4fc">Phase 2: Denoising Loop — jax.lax.while_loop</text>
+  <text x="1060" y="1807" text-anchor="middle" font-size="11" fill="#818cf8">t: 1.0 → 0.9 → 0.8 → ··· → 0.1 (num_steps=10, dt=-0.1)</text>
 
   <!-- Step boxes in loop -->
-  <rect x="600" y="1740" width="360" height="38" rx="4" fill="#1e1b40" stroke="#a855f7" stroke-width="1.5"/>
-  <text x="780" y="1756" text-anchor="middle" font-size="11" fill="#c084fc">① embed_suffix(obs, x_t, t) → suffix_tokens [4,33,1024]</text>
-  <text x="780" y="1771" text-anchor="middle" font-size="11" fill="#94a3b8">action_in_proj + time_emb + MLP (매 step 재계산)</text>
+  <rect x="600" y="1816" width="360" height="38" rx="4" fill="#1e1b40" stroke="#a855f7" stroke-width="1.5"/>
+  <text x="780" y="1832" text-anchor="middle" font-size="11" fill="#c084fc">① embed_suffix(obs, x_t, t) → suffix_tokens [4,33,1024]</text>
+  <text x="780" y="1847" text-anchor="middle" font-size="11" fill="#94a3b8">action_in_proj + time_emb + MLP (매 step 재계산)</text>
 
-  <rect x="600" y="1786" width="360" height="38" rx="4" fill="#1e1b40" stroke="#a855f7" stroke-width="1.5"/>
-  <text x="780" y="1802" text-anchor="middle" font-size="11" fill="#c084fc">② full_attn_mask: [4, 33, 817]</text>
-  <text x="780" y="1817" text-anchor="middle" font-size="11" fill="#94a3b8">prefix_mask [b,33,784] ‖ suffix_mask [b,33,33]</text>
+  <rect x="600" y="1862" width="360" height="38" rx="4" fill="#1e1b40" stroke="#a855f7" stroke-width="1.5"/>
+  <text x="780" y="1878" text-anchor="middle" font-size="11" fill="#c084fc">② full_attn_mask: [4, 33, 817]</text>
+  <text x="780" y="1893" text-anchor="middle" font-size="11" fill="#94a3b8">prefix_mask [b,33,784] ‖ suffix_mask [b,33,33]</text>
 
-  <rect x="600" y="1832" width="360" height="38" rx="4" fill="#1e1b40" stroke="#a855f7" stroke-width="1.5"/>
-  <text x="780" y="1848" text-anchor="middle" font-size="11" fill="#c084fc">③ llm([None, suffix_tokens], kv_cache=cache)</text>
-  <text x="780" y="1863" text-anchor="middle" font-size="11" fill="#94a3b8">Expert 1만 실행, KV cache에서 K/V 가져옴</text>
+  <rect x="600" y="1908" width="360" height="38" rx="4" fill="#1e1b40" stroke="#a855f7" stroke-width="1.5"/>
+  <text x="780" y="1924" text-anchor="middle" font-size="11" fill="#c084fc">③ llm([None, suffix_tokens], kv_cache=cache)</text>
+  <text x="780" y="1939" text-anchor="middle" font-size="11" fill="#94a3b8">Expert 1만 실행, KV cache에서 K/V 가져옴</text>
 
-  <rect x="600" y="1878" width="360" height="38" rx="4" fill="#1e1b40" stroke="#a855f7" stroke-width="1.5"/>
-  <text x="780" y="1894" text-anchor="middle" font-size="11" fill="#c084fc">④ v_t = action_out_proj(suffix_out[:,-32:])</text>
-  <text x="780" y="1909" text-anchor="middle" font-size="11" fill="#94a3b8">Linear(1024→7) → v_t [4, 32, 7]</text>
+  <rect x="600" y="1954" width="360" height="38" rx="4" fill="#1e1b40" stroke="#a855f7" stroke-width="1.5"/>
+  <text x="780" y="1970" text-anchor="middle" font-size="11" fill="#c084fc">④ v_t = action_out_proj(suffix_out[:,-32:])</text>
+  <text x="780" y="1985" text-anchor="middle" font-size="11" fill="#94a3b8">Linear(1024→7) → v_t [4, 32, 7]</text>
 
-  <rect x="600" y="1924" width="360" height="36" rx="4" fill="#0f2d1a" stroke="#10b981" stroke-width="1.5"/>
-  <text x="780" y="1942" text-anchor="middle" font-size="12" font-weight="bold" fill="#10b981">⑤ x_t = x_t + dt × v_t  (Euler step)</text>
-  <text x="780" y="1957" text-anchor="middle" font-size="11" fill="#6ee7b7">x_t 업데이트, t += dt (-0.1)</text>
+  <rect x="600" y="2000" width="360" height="36" rx="4" fill="#0f2d1a" stroke="#10b981" stroke-width="1.5"/>
+  <text x="780" y="2018" text-anchor="middle" font-size="12" font-weight="bold" fill="#10b981">⑤ x_t = x_t + dt × v_t  (Euler step)</text>
+  <text x="780" y="2033" text-anchor="middle" font-size="11" fill="#6ee7b7">x_t 업데이트, t += dt (-0.1)</text>
 
   <!-- Result -->
-  <rect x="990" y="1740" width="530" height="220" rx="8" fill="#0a1628" stroke="#10b981" stroke-width="2"/>
-  <text x="1255" y="1762" text-anchor="middle" font-size="14" font-weight="bold" fill="#10b981">최종 결과: x_0 [4, 32, 7]</text>
-  <text x="1255" y="1782" text-anchor="middle" font-size="12" fill="#6ee7b7">Pure noise → Clean actions</text>
-  <text x="1010" y="1808" font-size="11" fill="#94a3b8">t=1.0: x_t = noise (완전 랜덤)</text>
-  <text x="1010" y="1826" font-size="11" fill="#94a3b8">t=0.9: x_t ≈ noise (약간 정제)</text>
-  <text x="1010" y="1844" font-size="11" fill="#94a3b8">t=0.5: x_t ≈ 중간 상태</text>
-  <text x="1010" y="1862" font-size="11" fill="#6ee7b7">t=0.0: x_0 = clean actions ✓</text>
+  <rect x="990" y="1816" width="530" height="220" rx="8" fill="#0a1628" stroke="#10b981" stroke-width="2"/>
+  <text x="1255" y="1838" text-anchor="middle" font-size="14" font-weight="bold" fill="#10b981">최종 결과: x_0 [4, 32, 7]</text>
+  <text x="1255" y="1858" text-anchor="middle" font-size="12" fill="#6ee7b7">Pure noise → Clean actions</text>
+  <text x="1010" y="1884" font-size="11" fill="#94a3b8">t=1.0: x_t = noise (완전 랜덤)</text>
+  <text x="1010" y="1902" font-size="11" fill="#94a3b8">t=0.9: x_t ≈ noise (약간 정제)</text>
+  <text x="1010" y="1920" font-size="11" fill="#94a3b8">t=0.5: x_t ≈ 중간 상태</text>
+  <text x="1010" y="1938" font-size="11" fill="#6ee7b7">t=0.0: x_0 = clean actions ✓</text>
 
-  <rect x="1010" y="1876" width="490" height="70" rx="6" fill="#051a0d" stroke="#10b981" stroke-width="1"/>
-  <text x="1255" y="1896" text-anchor="middle" font-size="12" font-weight="bold" fill="#10b981">계산 비용 비교</text>
-  <text x="1255" y="1914" text-anchor="middle" font-size="11" fill="#6ee7b7">KV Cache 없이: 10 × full forward = 110회</text>
-  <text x="1255" y="1930" text-anchor="middle" font-size="11" fill="#4ade80">KV Cache 있음: 1 + 10 × suffix = 11회  (×10 절약)</text>
+  <rect x="1010" y="1952" width="490" height="70" rx="6" fill="#051a0d" stroke="#10b981" stroke-width="1"/>
+  <text x="1255" y="1972" text-anchor="middle" font-size="12" font-weight="bold" fill="#10b981">계산 비용 비교</text>
+  <text x="1255" y="1990" text-anchor="middle" font-size="11" fill="#6ee7b7">KV Cache 없이: 10 × full forward = 110회</text>
+  <text x="1255" y="2006" text-anchor="middle" font-size="11" fill="#4ade80">KV Cache 있음: 1 + 10 × suffix = 11회  (×10 절약)</text>
 
   <!-- ═══════════════════════════════════════════════════════════════════ -->
   <!-- SECTION 8: WEIGHT SUMMARY TABLE -->
   <!-- ═══════════════════════════════════════════════════════════════════ -->
-  <rect x="20" y="2018" width="1560" height="2" fill="#334155"/>
-  <text x="30" y="2040" font-size="16" font-weight="bold" fill="#f1f5f9">⑧ 파라미터 구조 요약 — Per Layer</text>
+  <rect x="20" y="2094" width="1560" height="2" fill="#334155"/>
+  <text x="30" y="2116" font-size="16" font-weight="bold" fill="#f1f5f9">⑧ 파라미터 구조 요약 — Per Layer</text>
 
   <!-- Table header -->
-  <rect x="30" y="2050" width="1540" height="28" rx="4" fill="#1e2d45"/>
-  <text x="150" y="2068" text-anchor="middle" font-size="12" font-weight="bold" fill="#e2e8f0">컴포넌트</text>
-  <text x="430" y="2068" text-anchor="middle" font-size="12" font-weight="bold" fill="#3b82f6">Expert 0 (PaliGemma 2B)</text>
-  <text x="780" y="2068" text-anchor="middle" font-size="12" font-weight="bold" fill="#f97316">Expert 1 (Action Expert 300M)</text>
-  <text x="1100" y="2068" text-anchor="middle" font-size="12" font-weight="bold" fill="#a855f7">공유 여부</text>
-  <text x="1380" y="2068" text-anchor="middle" font-size="12" font-weight="bold" fill="#94a3b8">비고</text>
+  <rect x="30" y="2126" width="1540" height="28" rx="4" fill="#1e2d45"/>
+  <text x="150" y="2144" text-anchor="middle" font-size="12" font-weight="bold" fill="#e2e8f0">컴포넌트</text>
+  <text x="430" y="2144" text-anchor="middle" font-size="12" font-weight="bold" fill="#3b82f6">Expert 0 (PaliGemma 2B)</text>
+  <text x="780" y="2144" text-anchor="middle" font-size="12" font-weight="bold" fill="#f97316">Expert 1 (Action Expert 300M)</text>
+  <text x="1100" y="2144" text-anchor="middle" font-size="12" font-weight="bold" fill="#a855f7">공유 여부</text>
+  <text x="1380" y="2144" text-anchor="middle" font-size="12" font-weight="bold" fill="#94a3b8">비고</text>
 
   <!-- Row 1 -->
-  <rect x="30" y="2078" width="1540" height="28" rx="0" fill="#131e2e"/>
-  <text x="150" y="2096" text-anchor="middle" font-size="11" fill="#94a3b8">Q Projection</text>
-  <text x="430" y="2096" text-anchor="middle" font-size="11" fill="#93c5fd">[8, 2048, 256]  = 4.2M</text>
-  <text x="780" y="2096" text-anchor="middle" font-size="11" fill="#fed7aa">[8, 1024, 256]  = 2.1M</text>
-  <text x="1100" y="2096" text-anchor="middle" font-size="11" fill="#f87171">독립</text>
-  <text x="1380" y="2096" text-anchor="middle" font-size="11" fill="#64748b">q_einsum / q_einsum_1</text>
+  <rect x="30" y="2154" width="1540" height="28" rx="0" fill="#131e2e"/>
+  <text x="150" y="2172" text-anchor="middle" font-size="11" fill="#94a3b8">Q Projection</text>
+  <text x="430" y="2172" text-anchor="middle" font-size="11" fill="#93c5fd">[8, 2048, 256]  = 4.2M</text>
+  <text x="780" y="2172" text-anchor="middle" font-size="11" fill="#fed7aa">[8, 1024, 256]  = 2.1M</text>
+  <text x="1100" y="2172" text-anchor="middle" font-size="11" fill="#f87171">독립</text>
+  <text x="1380" y="2172" text-anchor="middle" font-size="11" fill="#64748b">q_einsum / q_einsum_1</text>
 
   <!-- Row 2 -->
-  <rect x="30" y="2106" width="1540" height="28" rx="0" fill="#1a2538"/>
-  <text x="150" y="2124" text-anchor="middle" font-size="11" fill="#94a3b8">KV Projection</text>
-  <text x="430" y="2124" text-anchor="middle" font-size="11" fill="#93c5fd">[2, 1, 2048, 256]  = 1.05M</text>
-  <text x="780" y="2124" text-anchor="middle" font-size="11" fill="#fed7aa">[2, 1, 1024, 256]  = 0.52M</text>
-  <text x="1100" y="2124" text-anchor="middle" font-size="11" fill="#f87171">독립</text>
-  <text x="1380" y="2124" text-anchor="middle" font-size="11" fill="#64748b">GQA: num_kv=1, num_q=8</text>
+  <rect x="30" y="2182" width="1540" height="28" rx="0" fill="#1a2538"/>
+  <text x="150" y="2200" text-anchor="middle" font-size="11" fill="#94a3b8">KV Projection</text>
+  <text x="430" y="2200" text-anchor="middle" font-size="11" fill="#93c5fd">[2, 1, 2048, 256]  = 1.05M</text>
+  <text x="780" y="2200" text-anchor="middle" font-size="11" fill="#fed7aa">[2, 1, 1024, 256]  = 0.52M</text>
+  <text x="1100" y="2200" text-anchor="middle" font-size="11" fill="#f87171">독립</text>
+  <text x="1380" y="2200" text-anchor="middle" font-size="11" fill="#64748b">GQA: num_kv=1, num_q=8</text>
 
   <!-- Row 3 -->
-  <rect x="30" y="2134" width="1540" height="28" rx="0" fill="#131e2e"/>
-  <text x="150" y="2152" text-anchor="middle" font-size="11" fill="#94a3b8">Out Projection</text>
-  <text x="430" y="2152" text-anchor="middle" font-size="11" fill="#93c5fd">[8, 256, 2048]  = 4.2M</text>
-  <text x="780" y="2152" text-anchor="middle" font-size="11" fill="#fed7aa">[8, 256, 1024]  = 2.1M</text>
-  <text x="1100" y="2152" text-anchor="middle" font-size="11" fill="#f87171">독립</text>
-  <text x="1380" y="2152" text-anchor="middle" font-size="11" fill="#64748b">attention 결과를 각 차원으로</text>
+  <rect x="30" y="2210" width="1540" height="28" rx="0" fill="#131e2e"/>
+  <text x="150" y="2228" text-anchor="middle" font-size="11" fill="#94a3b8">Out Projection</text>
+  <text x="430" y="2228" text-anchor="middle" font-size="11" fill="#93c5fd">[8, 256, 2048]  = 4.2M</text>
+  <text x="780" y="2228" text-anchor="middle" font-size="11" fill="#fed7aa">[8, 256, 1024]  = 2.1M</text>
+  <text x="1100" y="2228" text-anchor="middle" font-size="11" fill="#f87171">독립</text>
+  <text x="1380" y="2228" text-anchor="middle" font-size="11" fill="#64748b">attention 결과를 각 차원으로</text>
 
   <!-- Row 4 -->
-  <rect x="30" y="2162" width="1540" height="28" rx="0" fill="#1a2538"/>
-  <text x="150" y="2180" text-anchor="middle" font-size="11" fill="#94a3b8">FFN gating</text>
-  <text x="430" y="2180" text-anchor="middle" font-size="11" fill="#93c5fd">[2, 2048, 16384] = 67M</text>
-  <text x="780" y="2180" text-anchor="middle" font-size="11" fill="#fed7aa">[2, 1024, 4096]  = 8.4M</text>
-  <text x="1100" y="2180" text-anchor="middle" font-size="11" fill="#f87171">독립</text>
-  <text x="1380" y="2180" text-anchor="middle" font-size="11" fill="#64748b">GeGLU: gate × linear</text>
+  <rect x="30" y="2238" width="1540" height="28" rx="0" fill="#1a2538"/>
+  <text x="150" y="2256" text-anchor="middle" font-size="11" fill="#94a3b8">FFN gating</text>
+  <text x="430" y="2256" text-anchor="middle" font-size="11" fill="#93c5fd">[2, 2048, 16384] = 67M</text>
+  <text x="780" y="2256" text-anchor="middle" font-size="11" fill="#fed7aa">[2, 1024, 4096]  = 8.4M</text>
+  <text x="1100" y="2256" text-anchor="middle" font-size="11" fill="#f87171">독립</text>
+  <text x="1380" y="2256" text-anchor="middle" font-size="11" fill="#64748b">GeGLU: gate × linear</text>
 
   <!-- Row 5 -->
-  <rect x="30" y="2190" width="1540" height="28" rx="0" fill="#131e2e"/>
-  <text x="150" y="2208" text-anchor="middle" font-size="11" fill="#94a3b8">FFN linear</text>
-  <text x="430" y="2208" text-anchor="middle" font-size="11" fill="#93c5fd">[16384, 2048]  = 33.6M</text>
-  <text x="780" y="2208" text-anchor="middle" font-size="11" fill="#fed7aa">[4096, 1024]   = 4.2M</text>
-  <text x="1100" y="2208" text-anchor="middle" font-size="11" fill="#f87171">독립</text>
-  <text x="1380" y="2208" text-anchor="middle" font-size="11" fill="#64748b"></text>
+  <rect x="30" y="2266" width="1540" height="28" rx="0" fill="#131e2e"/>
+  <text x="150" y="2284" text-anchor="middle" font-size="11" fill="#94a3b8">FFN linear</text>
+  <text x="430" y="2284" text-anchor="middle" font-size="11" fill="#93c5fd">[16384, 2048]  = 33.6M</text>
+  <text x="780" y="2284" text-anchor="middle" font-size="11" fill="#fed7aa">[4096, 1024]   = 4.2M</text>
+  <text x="1100" y="2284" text-anchor="middle" font-size="11" fill="#f87171">독립</text>
+  <text x="1380" y="2284" text-anchor="middle" font-size="11" fill="#64748b"></text>
 
   <!-- Row 6 -->
-  <rect x="30" y="2218" width="1540" height="28" rx="0" fill="#1a2538"/>
-  <text x="150" y="2236" text-anchor="middle" font-size="11" fill="#94a3b8">RMSNorm scales</text>
-  <text x="430" y="2236" text-anchor="middle" font-size="11" fill="#93c5fd">2 × [2048]  (pre_attn, pre_ffw)</text>
-  <text x="780" y="2236" text-anchor="middle" font-size="11" fill="#fed7aa">2 × [1024]</text>
-  <text x="1100" y="2236" text-anchor="middle" font-size="11" fill="#f87171">독립</text>
-  <text x="1380" y="2236" text-anchor="middle" font-size="11" fill="#64748b"></text>
+  <rect x="30" y="2294" width="1540" height="28" rx="0" fill="#1a2538"/>
+  <text x="150" y="2312" text-anchor="middle" font-size="11" fill="#94a3b8">RMSNorm scales</text>
+  <text x="430" y="2312" text-anchor="middle" font-size="11" fill="#93c5fd">2 × [2048]  (pre_attn, pre_ffw)</text>
+  <text x="780" y="2312" text-anchor="middle" font-size="11" fill="#fed7aa">2 × [1024]</text>
+  <text x="1100" y="2312" text-anchor="middle" font-size="11" fill="#f87171">독립</text>
+  <text x="1380" y="2312" text-anchor="middle" font-size="11" fill="#64748b"></text>
 
   <!-- Row 7 -->
-  <rect x="30" y="2246" width="1540" height="28" rx="0" fill="#131e2e"/>
-  <text x="150" y="2264" text-anchor="middle" font-size="11" fill="#94a3b8">Attention Softmax</text>
-  <text x="630" y="2264" text-anchor="middle" font-size="11" fill="#c084fc">하나의 [4, 1, 8, 817, 817] 행렬 — 두 Expert 공유</text>
-  <text x="1100" y="2264" text-anchor="middle" font-size="11" fill="#4ade80">공유</text>
-  <text x="1380" y="2264" text-anchor="middle" font-size="11" fill="#64748b">Transfusion 핵심</text>
+  <rect x="30" y="2322" width="1540" height="28" rx="0" fill="#131e2e"/>
+  <text x="150" y="2340" text-anchor="middle" font-size="11" fill="#94a3b8">Attention Softmax</text>
+  <text x="630" y="2340" text-anchor="middle" font-size="11" fill="#c084fc">하나의 [4, 1, 8, 817, 817] 행렬 — 두 Expert 공유</text>
+  <text x="1100" y="2340" text-anchor="middle" font-size="11" fill="#4ade80">공유</text>
+  <text x="1380" y="2340" text-anchor="middle" font-size="11" fill="#64748b">Transfusion 핵심</text>
 
   <!-- ═══════════════════════════════════════════════════════════════════ -->
   <!-- SECTION 9: DESIGN INSIGHTS -->
   <!-- ═══════════════════════════════════════════════════════════════════ -->
-  <rect x="20" y="2290" width="1560" height="2" fill="#334155"/>
-  <text x="30" y="2312" font-size="16" font-weight="bold" fill="#f1f5f9">⑨ 설계 핵심 포인트 (Transfusion Architecture)</text>
+  <rect x="20" y="2366" width="1560" height="2" fill="#334155"/>
+  <text x="30" y="2388" font-size="16" font-weight="bold" fill="#f1f5f9">⑨ 설계 핵심 포인트 (Transfusion Architecture)</text>
 
-  <rect x="30" y="2322" width="360" height="120" rx="8" fill="#0a1628" stroke="#3b82f6" stroke-width="1.5"/>
-  <text x="210" y="2342" text-anchor="middle" font-size="13" font-weight="bold" fill="#60a5fa">멀티모달 통합</text>
-  <text x="50" y="2362" font-size="11" fill="#93c5fd">• 이미지/언어/행동 토큰이</text>
-  <text x="50" y="2378" font-size="11" fill="#93c5fd">  동일한 attention 공간에서 교류</text>
-  <text x="50" y="2394" font-size="11" fill="#93c5fd">• Action Expert가 PaliGemma의</text>
-  <text x="50" y="2410" font-size="11" fill="#93c5fd">  지식을 직접 참조 가능</text>
-  <text x="50" y="2426" font-size="11" fill="#93c5fd">• 서로 다른 차원(2048/1024) →</text>
-  <text x="50" y="2440" font-size="11" fill="#93c5fd">  동일 head_dim=256 으로 투영</text>
+  <rect x="30" y="2398" width="360" height="130" rx="8" fill="#0a1628" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="210" y="2418" text-anchor="middle" font-size="13" font-weight="bold" fill="#60a5fa">멀티모달 통합</text>
+  <text x="50" y="2438" font-size="11" fill="#93c5fd">• 이미지/언어/행동 토큰이</text>
+  <text x="50" y="2454" font-size="11" fill="#93c5fd">  동일한 attention 공간에서 교류</text>
+  <text x="50" y="2470" font-size="11" fill="#93c5fd">• Action Expert가 PaliGemma의</text>
+  <text x="50" y="2486" font-size="11" fill="#93c5fd">  지식을 직접 참조 가능</text>
+  <text x="50" y="2502" font-size="11" fill="#93c5fd">• 서로 다른 차원(2048/1024) →</text>
+  <text x="50" y="2518" font-size="11" fill="#93c5fd">  동일 head_dim=256 으로 투영</text>
 
-  <rect x="410" y="2322" width="360" height="120" rx="8" fill="#0a1628" stroke="#f97316" stroke-width="1.5"/>
-  <text x="590" y="2342" text-anchor="middle" font-size="13" font-weight="bold" fill="#fb923c">Flow Matching</text>
-  <text x="430" y="2362" font-size="11" fill="#fed7aa">• Diffusion 대신 ODE 경로 사용</text>
-  <text x="430" y="2378" font-size="11" fill="#fed7aa">• 직선 보간: 학습 안정성 ↑</text>
-  <text x="430" y="2394" font-size="11" fill="#fed7aa">• 학습: t~Beta(1.5,1), x_t=interp</text>
-  <text x="430" y="2410" font-size="11" fill="#fed7aa">• 추론: Euler 10회 (DDIM보다 단순)</text>
-  <text x="430" y="2426" font-size="11" fill="#fed7aa">• u_t = noise-actions (상수 벡터장)</text>
+  <rect x="410" y="2398" width="360" height="130" rx="8" fill="#0a1628" stroke="#f97316" stroke-width="1.5"/>
+  <text x="590" y="2418" text-anchor="middle" font-size="13" font-weight="bold" fill="#fb923c">Flow Matching</text>
+  <text x="430" y="2438" font-size="11" fill="#fed7aa">• Diffusion 대신 ODE 경로 사용</text>
+  <text x="430" y="2454" font-size="11" fill="#fed7aa">• 직선 보간: 학습 안정성 ↑</text>
+  <text x="430" y="2470" font-size="11" fill="#fed7aa">• 학습: t~Beta(1.5,1), x_t=interp</text>
+  <text x="430" y="2486" font-size="11" fill="#fed7aa">• 추론: Euler 10회 (DDIM보다 단순)</text>
+  <text x="430" y="2502" font-size="11" fill="#fed7aa">• u_t = noise-actions (상수 벡터장)</text>
 
-  <rect x="790" y="2322" width="360" height="120" rx="8" fill="#0a1628" stroke="#a855f7" stroke-width="1.5"/>
-  <text x="970" y="2342" text-anchor="middle" font-size="13" font-weight="bold" fill="#c084fc">GQA + KV Cache</text>
-  <text x="810" y="2362" font-size="11" fill="#d8b4fe">• num_kv_heads=1, num_heads=8</text>
-  <text x="810" y="2378" font-size="11" fill="#d8b4fe">  → K,V 메모리 8배 절약</text>
-  <text x="810" y="2394" font-size="11" fill="#d8b4fe">• Prefix 불변 → KV Cache 재사용</text>
-  <text x="810" y="2410" font-size="11" fill="#d8b4fe">• 추론 속도 10배 향상</text>
-  <text x="810" y="2426" font-size="11" fill="#d8b4fe">• ar_mask: prefix→suffix 차단이</text>
-  <text x="810" y="2442" font-size="11" fill="#d8b4fe">  KV Cache 정확성 보장</text>
+  <rect x="790" y="2398" width="360" height="130" rx="8" fill="#0a1628" stroke="#a855f7" stroke-width="1.5"/>
+  <text x="970" y="2418" text-anchor="middle" font-size="13" font-weight="bold" fill="#c084fc">GQA + KV Cache</text>
+  <text x="810" y="2438" font-size="11" fill="#d8b4fe">• num_kv_heads=1, num_heads=8</text>
+  <text x="810" y="2454" font-size="11" fill="#d8b4fe">  → K,V 메모리 8배 절약</text>
+  <text x="810" y="2470" font-size="11" fill="#d8b4fe">• Prefix 불변 → KV Cache 재사용</text>
+  <text x="810" y="2486" font-size="11" fill="#d8b4fe">• 추론 속도 10배 향상</text>
+  <text x="810" y="2502" font-size="11" fill="#d8b4fe">• ar_mask: prefix→suffix 차단이</text>
+  <text x="810" y="2518" font-size="11" fill="#d8b4fe">  KV Cache 정확성 보장</text>
 
-  <rect x="1170" y="2322" width="400" height="120" rx="8" fill="#0a1628" stroke="#10b981" stroke-width="1.5"/>
-  <text x="1370" y="2342" text-anchor="middle" font-size="13" font-weight="bold" fill="#10b981">π₀ vs π₀.₅</text>
-  <text x="1190" y="2362" font-size="11" fill="#6ee7b7">π₀  : state 토큰 + action+time MLP</text>
-  <text x="1190" y="2378" font-size="11" fill="#6ee7b7">      adarms_cond=None</text>
-  <text x="1190" y="2394" font-size="11" fill="#6ee7b7">      suffix=33 (state1+action32)</text>
-  <text x="1190" y="2410" font-size="11" fill="#64748b">π₀.₅: time MLP → AdaRMS 조건부</text>
-  <text x="1190" y="2426" font-size="11" fill="#64748b">      adarms_cond=time_emb</text>
-  <text x="1190" y="2442" font-size="11" fill="#64748b">      suffix=32 (action only)</text>
+  <rect x="1170" y="2398" width="400" height="130" rx="8" fill="#0a1628" stroke="#10b981" stroke-width="1.5"/>
+  <text x="1370" y="2418" text-anchor="middle" font-size="13" font-weight="bold" fill="#10b981">π₀ vs π₀.₅</text>
+  <text x="1190" y="2438" font-size="11" fill="#6ee7b7">π₀  : state 토큰 + action+time MLP</text>
+  <text x="1190" y="2454" font-size="11" fill="#6ee7b7">      adarms_cond=None</text>
+  <text x="1190" y="2470" font-size="11" fill="#6ee7b7">      suffix=33 (state1+action32)</text>
+  <text x="1190" y="2486" font-size="11" fill="#64748b">π₀.₅: time MLP → AdaRMS 조건부</text>
+  <text x="1190" y="2502" font-size="11" fill="#64748b">      adarms_cond=time_emb</text>
+  <text x="1190" y="2518" font-size="11" fill="#64748b">      suffix=32 (action only)</text>
 
   <!-- ─── defs for arrow marker ─── -->
   <defs>
@@ -591,7 +592,7 @@
   </defs>
 
   <!-- footer -->
-  <text x="800" y="2480" text-anchor="middle" font-size="12" fill="#475569">Source: openpi/src/openpi/models/pi0.py · gemma.py · siglip.py  |  Physical Intelligence (π) 2024</text>
-  <text x="800" y="2498" text-anchor="middle" font-size="12" fill="#475569">Transfusion: 서로 다른 차원의 두 Expert가 하나의 Softmax Attention을 공유하며 상호작용하는 구조</text>
+  <text x="800" y="2566" text-anchor="middle" font-size="12" fill="#475569">Source: openpi/src/openpi/models/pi0.py · gemma.py · siglip.py  |  Physical Intelligence (π) 2024</text>
+  <text x="800" y="2584" text-anchor="middle" font-size="12" fill="#475569">Transfusion: 서로 다른 차원의 두 Expert가 하나의 Softmax Attention을 공유하며 상호작용하는 구조</text>
 
 </svg>
