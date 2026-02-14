@@ -183,7 +183,7 @@
   <rect x="1015" y="592" width="50" height="26" rx="3" fill="#1c1407" stroke="#f59e0b" stroke-width="1"/>
   <text x="1040" y="609" text-anchor="middle" font-size="11" fill="#fcd34d">1</text>
   <rect x="1070" y="592" width="475" height="26" rx="3" fill="#1c1407" stroke="#f59e0b" stroke-width="1"/>
-  <text x="1307" y="609" text-anchor="middle" font-size="11" fill="#fcd34d">2, 2, 2, … 2  (32개 = actions)</text>
+  <text x="1307" y="609" text-anchor="middle" font-size="11" fill="#fcd34d">2, 3, 4, … 32  (32개 = actions)</text>
 
   <!-- Attention pattern table -->
   <text x="50" y="640" font-size="13" font-weight="bold" fill="#ef4444">Attention 허용 규칙: cumsum[key] ≤ cumsum[query]</text>
