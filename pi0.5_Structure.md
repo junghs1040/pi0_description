@@ -17,32 +17,32 @@
 > - 🏋️ **학습**: Ground truth actions + noise → Flow Matching loss 계산
 > - 🎯 **추론**: Pure noise에서 시작 → 10회 Euler integration으로 action 생성
 
-Step 0: 원본 입력 데이터 (Images, State-as-text, Actions)
-Step 1: Observation 객체 생성 (State → 토큰화, uint8 → float32 정규화)
-Step 2: Image Embedding (SigLIP) - 3×256 = 768 tokens
-Step 3: State+Text Embedding (Gemma Embedder) - 최대 200 tokens
-Step 4: Prefix Concatenation - 최대 968 tokens (Image + State/Text)
-Step 5: Action Embedding (Suffix) - 50 tokens + AdaRMSNorm 조건 생성
-Step 6: Attention Mask 생성 - [4, 1018, 1018]
-Step 7: Transformer Layer 0 상세 분석 (AdaRMSNorm 포함)
-7-1: Pre-Attention AdaRMSNorm (Adaptive, time_emb 조건부)
-7-2: QKV Projection (Multi-Expert)
-7-3: RoPE (Rotary Position Embedding)
-7-4: Grouped Query Attention
-7-5: Output Projection (Expert별)
-7-6: Gated Residual Connection (AdaRMSNorm gate)
-7-7: FeedForward Network (AdaRMSNorm gate 적용)
-Step 8: Transformer Layers 1-17 (18 layers total)
-Step 9: Final Layer Normalization (AdaRMSNorm)
-Step 10-11: Velocity Prediction + Flow Matching Loss
+Step 0: 원본 입력 데이터 (Images, State-as-text, Actions)  
+Step 1: Observation 객체 생성 (State → 토큰화, uint8 → float32 정규화)  
+Step 2: Image Embedding (SigLIP) - 3×256 = 768 tokens    
+Step 3: State+Text Embedding (Gemma Embedder) - 최대 200 tokens  
+Step 4: Prefix Concatenation - 최대 968 tokens (Image + State/Text)  
+Step 5: Action Embedding (Suffix) - 50 tokens + AdaRMSNorm 조건 생성  
+Step 6: Attention Mask 생성 - [4, 1018, 1018]  
+Step 7: Transformer Layer 0 상세 분석 (AdaRMSNorm 포함)  
+7-1: Pre-Attention AdaRMSNorm (Adaptive, time_emb 조건부)  
+7-2: QKV Projection (Multi-Expert)  
+7-3: RoPE (Rotary Position Embedding)  
+7-4: Grouped Query Attention  
+7-5: Output Projection (Expert별)  
+7-6: Gated Residual Connection (AdaRMSNorm gate)  
+7-7: FeedForward Network (AdaRMSNorm gate 적용)    
+Step 8: Transformer Layers 1-17 (18 layers total)  
+Step 9: Final Layer Normalization (AdaRMSNorm)  
+Step 10-11: Velocity Prediction + Flow Matching Loss  
 
 
 **예시 데이터**:
-- Batch Size: B = 4
-- Images: 3개 (base_0, left_wrist_0, right_wrist_0)
-- Text + State: 최대 200 tokens (state가 텍스트 토큰으로 인코딩됨)
-- Actions: 50 timesteps, 32 DoF
-- Model: π₀.₅ (`pi05=True`)
+- Batch Size: B = 4  
+- Images: 3개 (base_0, left_wrist_0, right_wrist_0)  
+- Text + State: 최대 200 tokens (state가 텍스트 토큰으로 인코딩됨)  
+- Actions: 50 timesteps, 32 DoF  
+- Model: π₀.₅ (`pi05=True`)  
 
 ---
 
